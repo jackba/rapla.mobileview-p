@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?><!--*- coding: utf-8 -*-->
+<!DOCTYPE resources PUBLIC "-//rapla team//DTD Language Files 1.0//" "http://rapla.sf.net/dtds/resources.dtd">
+<resources default="en">
+  <entry key="default_page_title">
+    <text lang="en">Rapla mobile calendar</text>
+    <text lang="de">Rapla mobiler Kalender</text>
+  </entry>
+  <entry key="default_title">
+    <text lang="en">Rapla Mobile</text>
+    <text lang="de">Rapla Mobile</text>
+  </entry>
+  <entry key="set_date">
+    <text lang="en">Set Date</text>
+    <text lang="de">Zeige den Navigationsbalken</text>
+  </entry>
+  <entry key="btn_show_date">
+    <text lang="en">Show</text>
+    <text lang="de">Anzeigen</text>
+  </entry>
+  <entry key="btn_back">
+    <text lang="en">Back</text>
+    <text lang="de">Zurück</text>
+  </entry>
+  <entry key="btn_today">
+    <text lang="en">Today</text>
+    <text lang="de">Heute</text>
+  </entry>
+  <entry key="btn_date">
+    <text lang="en">Select Date</text>
+    <text lang="de">Datum wählen</text>
+  </entry>
+  <entry key="btn_next">
+    <text lang="en">Next week</text>
+    <text lang="de">Nächste Woche</text>
+  </entry>
+  <entry key="btn_previous">
+    <text lang="en">Previous Week</text>
+    <text lang="de">Vergangene Woche</text>
+  </entry>
+  <entry key="btn_edit">
+    <text lang="en">Edit</text>
+    <text lang="de">Editieren</text>
+  </entry>
+  <entry key="no_detail_found">
+    <text lang="en">No Details for given Appointment-ID found.</text>
+    <text lang="de">Für dieses Appointment sind keine Details verfügbar.</text>
+  </entry>
+  <entry key="detail_view">
+    <text lang="en">Appointment Details</text>
+    <text lang="de">Termin Details</text>
+  </entry>
+</resources>
