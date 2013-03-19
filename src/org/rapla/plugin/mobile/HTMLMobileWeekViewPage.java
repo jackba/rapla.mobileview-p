@@ -25,8 +25,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.avalon.framework.configuration.Configuration;
-import org.apache.avalon.framework.configuration.ConfigurationException;
 import org.rapla.components.calendarview.html.AbstractHTMLView;
 import org.rapla.components.calendarview.html.HTMLMobileWeekView;
 import org.rapla.components.calendarview.html.HTMLWeekView;
@@ -38,6 +36,8 @@ import org.rapla.entities.domain.Reservation;
 import org.rapla.entities.domain.internal.ReservationImpl;
 import org.rapla.entities.storage.RefEntity;
 import org.rapla.facade.ClientFacade;
+import org.rapla.framework.Configuration;
+import org.rapla.framework.ConfigurationException;
 import org.rapla.framework.RaplaContext;
 import org.rapla.framework.RaplaException;
 import org.rapla.gui.CalendarModel;
@@ -109,7 +109,7 @@ public class HTMLMobileWeekViewPage extends AbstractHTMLCalendarPage
      * Build the calendar of the current view
      * @throws ConfigurationException 
      */
-    protected RaplaBuilder createBuilder(HttpServletRequest request) throws RaplaException, ConfigurationException {
+    protected RaplaBuilder createBuilder(HttpServletRequest request) throws RaplaException {
     	HTMLMobileRaplaBuilder builder = new HTMLMobileRaplaBuilder(getContext());
     	Calendar cal = Calendar.getInstance();
     	cal.setTime(model.getSelectedDate());
@@ -119,7 +119,7 @@ public class HTMLMobileWeekViewPage extends AbstractHTMLCalendarPage
        
         boolean userColor = false;
         if (config != null) {
-        	userColor = config.getAttributeAsBoolean(MobilePlugin.ENABLE_USER_COLOR);
+        	userColor = config.getAttributeAsBoolean(MobilePlugin.ENABLE_USER_COLOR, false);
         }
         
         // Enable user defined colors if enabled in configuration
@@ -192,9 +192,6 @@ public class HTMLMobileWeekViewPage extends AbstractHTMLCalendarPage
 
         try {
             builder = createBuilder(request);
-        } catch (ConfigurationException ex) {
-        	getLogger().error("There are some problems with the configuration ", ex);
-            throw new ServletException(ex);
         } catch (RaplaException ex) {
             getLogger().error("Can't create builder ", ex);
             throw new ServletException(ex);

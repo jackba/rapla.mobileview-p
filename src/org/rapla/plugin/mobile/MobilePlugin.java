@@ -12,19 +12,18 @@
  *--------------------------------------------------------------------------*/
 package org.rapla.plugin.mobile;
 
-import org.apache.avalon.framework.configuration.Configuration;
-import org.apache.avalon.framework.logger.AbstractLogEnabled;
-import org.apache.avalon.framework.logger.Logger;
 import org.rapla.components.xmlbundle.I18nBundle;
 import org.rapla.components.xmlbundle.impl.I18nBundleImpl;
+import org.rapla.framework.Configuration;
 import org.rapla.framework.Container;
 import org.rapla.framework.PluginDescriptor;
 import org.rapla.framework.StartupEnvironment;
+import org.rapla.framework.logger.Logger;
 import org.rapla.plugin.RaplaExtensionPoints;
 import org.rapla.plugin.RaplaPluginMetaInfo;
 import org.rapla.servletpages.RaplaResourcePageGenerator;
 
-public class MobilePlugin extends AbstractLogEnabled implements PluginDescriptor
+public class MobilePlugin  implements PluginDescriptor
 {
 	// Resource file with language definitions
     public static final String RESOURCE_FILE =  MobilePlugin.class.getPackage().getName() + ".MobileResources";
@@ -44,8 +43,14 @@ public class MobilePlugin extends AbstractLogEnabled implements PluginDescriptor
     // plugin enabled
     static boolean ENABLE_BY_DEFAULT = true;
     
+    Logger logger;
+    
     public MobilePlugin(Logger logger) {
-        enableLogging(logger);
+        this.logger = logger;
+    }
+    
+    public Logger getLogger() {
+        return logger;
     }
 
     public String toString() {

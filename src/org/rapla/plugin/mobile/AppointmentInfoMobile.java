@@ -66,8 +66,13 @@ public class AppointmentInfoMobile extends ReservationInfoUI {
         while (it.hasNext()) {
         	Row att =  (Row) it.next();
             buf.append("<li>\n");
-            encode(att.getField(),buf);
-            buf.append(":\n");
+            String field = att.getField();
+			encode(field,buf);
+            if  ( field.length() > 0)
+            {
+            	buf.append(":");
+            }
+            buf.append("\n");
             buf.append("<p class=\"ui-li-aside\"><strong>");
             if (att.getValue() != null) {
             	// encode values if requested for better HTML support
