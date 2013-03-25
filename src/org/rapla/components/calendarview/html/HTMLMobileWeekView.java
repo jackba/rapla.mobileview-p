@@ -22,7 +22,6 @@ import java.util.Iterator;
 
 import org.rapla.components.calendarview.Block;
 import org.rapla.components.calendarview.Builder;
-import org.rapla.components.calendarview.html.HTMLWeekView.HTMLDaySlot;
 import org.rapla.components.calendarview.swing.SwingWeekView;
 
 public class HTMLMobileWeekView extends AbstractHTMLView {
@@ -30,7 +29,6 @@ public class HTMLMobileWeekView extends AbstractHTMLView {
 	    private int minRow;
 	    private int maxRow;
 	    private int startHour;
-	    private boolean showNonEmptyExcluded;
 	    int m_rowsPerHour = 2;
 	    HTMLDaySlot[] multSlots ;
 	    ArrayList<Block> blocks = new ArrayList<Block>();
@@ -59,10 +57,6 @@ public class HTMLMobileWeekView extends AbstractHTMLView {
 	    public void setWorktime(int startHour, int endHour) {
 	        this.startHour = startHour;
 	        this.endHour = endHour;
-	    }
-
-	    public void setShowNonEmptyExcludedDays( boolean showNonEmptyExcluded) {
-	        this.showNonEmptyExcluded = showNonEmptyExcluded;
 	    }
 
 	    public void setToDate(Date weekDate) {
