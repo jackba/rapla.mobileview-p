@@ -4,14 +4,9 @@ import java.util.Calendar;
 import java.util.Date;
 
 import org.rapla.components.calendarview.Block;
-import org.rapla.entities.configuration.Preferences;
-import org.rapla.entities.configuration.RaplaConfiguration;
-import org.rapla.facade.ClientFacade;
 import org.rapla.framework.RaplaContext;
 import org.rapla.framework.RaplaException;
-import org.rapla.gui.CalendarOptionsImpl;
 import org.rapla.plugin.abstractcalendar.RaplaBuilder;
-import org.rapla.plugin.mail.MailPlugin;
 
 class HTMLMobileRaplaBuilder extends RaplaBuilder {
     static String COLOR_NO_RESOURCE = "#BBEEBB";

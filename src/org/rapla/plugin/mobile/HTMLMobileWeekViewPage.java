@@ -27,7 +27,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.rapla.components.calendarview.html.AbstractHTMLView;
 import org.rapla.components.calendarview.html.HTMLMobileWeekView;
-import org.rapla.components.calendarview.html.HTMLWeekView;
 import org.rapla.components.util.SerializableDateTimeFormat;
 import org.rapla.entities.configuration.Preferences;
 import org.rapla.entities.configuration.RaplaConfiguration;
