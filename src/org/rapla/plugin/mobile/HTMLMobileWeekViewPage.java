@@ -14,9 +14,7 @@ package org.rapla.plugin.mobile;
 
 import java.io.IOException;
 import java.text.MessageFormat;
-import java.text.ParseException;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,31 +25,26 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.rapla.components.calendarview.html.AbstractHTMLView;
 import org.rapla.components.calendarview.html.HTMLMobileWeekView;
-import org.rapla.components.util.SerializableDateTimeFormat;
-import org.rapla.entities.configuration.Preferences;
-import org.rapla.entities.configuration.RaplaConfiguration;
 import org.rapla.entities.domain.Appointment;
 import org.rapla.entities.domain.Reservation;
 import org.rapla.entities.domain.internal.ReservationImpl;
 import org.rapla.entities.storage.RefEntity;
-import org.rapla.facade.ClientFacade;
-import org.rapla.framework.Configuration;
-import org.rapla.framework.ConfigurationException;
 import org.rapla.framework.RaplaContext;
+import org.rapla.framework.RaplaDefaultContext;
 import org.rapla.framework.RaplaException;
 import org.rapla.gui.CalendarModel;
 import org.rapla.gui.CalendarOptions;
 import org.rapla.plugin.abstractcalendar.AbstractHTMLCalendarPage;
 import org.rapla.plugin.abstractcalendar.GroupAllocatablesStrategy;
+import org.rapla.plugin.abstractcalendar.HTMLRaplaBlock;
+import org.rapla.plugin.abstractcalendar.HTMLRaplaBuilder;
 import org.rapla.plugin.abstractcalendar.RaplaBuilder;
 
 public class HTMLMobileWeekViewPage extends AbstractHTMLCalendarPage
 {
-    RaplaBuilder builder;
-    String calendarviewHTML;
-    Date startDate;
-    Date endDate;
-    private Configuration config;
+    public static final String URL_KEY = HTMLMobileRaplaBlock.class.getName() + "/URL";
+    
+    RaplaDefaultContext context = new RaplaDefaultContext( getContext());
     
     public HTMLMobileWeekViewPage(RaplaContext context, CalendarModel calendarModel) throws RaplaException
     {
@@ -59,16 +52,9 @@ public class HTMLMobileWeekViewPage extends AbstractHTMLCalendarPage
         setChildBundleName(MobilePlugin.RESOURCE_FILE);
         
         // init the configuration
-        initConfiguration();
+       // initConfiguration();
     }
-    
-    /**
-     * get the current HTML Calendar
-     */
-    public String getCalendarHTML() {
-        return calendarviewHTML;
-    }
-    
+   
     /**
      * Create the current calendar view
      */
@@ -81,120 +67,65 @@ public class HTMLMobileWeekViewPage extends AbstractHTMLCalendarPage
         
        return weekView;
     }
+    
+    protected void configureView() {
+        HTMLMobileWeekView weekView = (HTMLMobileWeekView) view;
+        CalendarOptions opt = getCalendarOptions();
+        weekView.setRowsPerHour( opt.getRowsPerHour() );
+        weekView.setWorktime( opt.getWorktimeStart(), opt.getWorktimeEnd() );
+        weekView.setFirstWeekday( opt.getFirstDayOfWeek());
+        int days = getDays(opt);
+        weekView.setDaysInView( days);
+        Set<Integer> excludeDays = opt.getExcludeDays();
+        if ( days <3)
+        {
+            excludeDays = new HashSet<Integer>();
+        }
+        weekView.setExcludeDays( excludeDays );
+    }
 
     /** overide this for daily views*/
    	protected int getDays(CalendarOptions calendarOptions) {
    		return calendarOptions.getDaysInWeekview();
    	}
     
-	protected void configureView() {
-		HTMLMobileWeekView weekView = (HTMLMobileWeekView) view;
-		CalendarOptions opt = getCalendarOptions();
-        weekView.setRowsPerHour( opt.getRowsPerHour() );
-        weekView.setWorktime( opt.getWorktimeStart(), opt.getWorktimeEnd() );
-        weekView.setFirstWeekday( opt.getFirstDayOfWeek());
-        int days = getDays(opt);
-		weekView.setDaysInView( days);
-		Set<Integer> excludeDays = opt.getExcludeDays();
-        if ( days <3)
-		{
-			excludeDays = new HashSet<Integer>();
-		}
-        weekView.setExcludeDays( excludeDays );
-	}
+	
     
-    /**
-     * Build the calendar of the current view
-     * @throws ConfigurationException 
-     */
-    protected RaplaBuilder createBuilder(HttpServletRequest request) throws RaplaException {
-    	HTMLMobileRaplaBuilder builder = new HTMLMobileRaplaBuilder(getContext());
-    	Calendar cal = Calendar.getInstance();
-    	cal.setTime(model.getSelectedDate());
-    	
-    	// set current url for the detail view link of a block
-    	builder.setCurUrl(genUrl(request, false) + date2Url(cal));
-       
-        boolean userColor = false;
-        if (config != null) {
-        	userColor = config.getAttributeAsBoolean(MobilePlugin.ENABLE_USER_COLOR, false);
-        }
+    protected RaplaBuilder createBuilder() throws RaplaException {
         
-        // Enable user defined colors if enabled in configuration
-        if (userColor) {
-        	builder.setUserColor(true);
-        }
-    	
-        builder.setRepeatingVisible(false);
-        builder.setExceptionsExcluded(true);
-        builder.setFromModel(model, view.getStartDate(), view.getEndDate());
+        RaplaBuilder builder = new HTMLRaplaBuilder( context)
+        {
+          @Override
+          protected HTMLRaplaBlock createBlock() {
+              return new HTMLMobileRaplaBlock();
+          }  
+        };
+        builder.setRepeatingVisible( false);
+        builder.setExceptionsExcluded( true );
+        builder.setFromModel( model, view.getStartDate(), view.getEndDate()  );
+        builder.setEditingUser( model.getUser());
 
-        GroupAllocatablesStrategy strategy = new GroupAllocatablesStrategy( getRaplaLocale().getLocale());
+        GroupAllocatablesStrategy strategy = new GroupAllocatablesStrategy( getRaplaLocale().getLocale() );
         boolean compactColumns = getCalendarOptions().isCompactColumns() ||  builder.getAllocatables().size() ==0 ;
-        strategy.setFixedSlotsEnabled(!compactColumns);
-        strategy.setResolveConflictsEnabled(true);
-        builder.setBuildStrategy(strategy);
+        strategy.setFixedSlotsEnabled( !compactColumns);
+        strategy.setResolveConflictsEnabled( true );
+        builder.setBuildStrategy( strategy );
 
         return builder;
     }
     
-    /**
-     * Generate the full HTML Output
-     */
-    public void generatePage(ServletContext context,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-    {	
-    	// set response for the browsers
-        response.setContentType("text/html; charset=" + getRaplaLocale().getCharsetNonUtf());
-        java.io.PrintWriter out = response.getWriter();
+    @Override
+    public void generatePage(ServletContext context, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(model.getSelectedDate());
+        String url =genUrl(request, false) + date2Url(cal);
+        this.context.put(URL_KEY, url);
+        super.generatePage(context, request, response);
+    }
+    @Override
+    protected void printPage(HttpServletRequest request, java.io.PrintWriter out, Calendar calendarview) throws ServletException {
         
-        Calendar calendarview = getRaplaLocale().createCalendar();
-        calendarview.setTime(model.getSelectedDate());
-        
-        // display the current day
-        if (request.getParameter("today") != null) {
-        	Date currentDay = getQuery().today();
-            calendarview.setTime(currentDay);
-        // display given date by GET-Parameters
-        } else if (request.getParameter("day") != null) {
-        	// generate date string from GET-Paramters
-        	String dateString = request.getParameter("year") + "-"
-                               + request.getParameter("month") + "-"
-                               + request.getParameter("day");
-            try {
-                SerializableDateTimeFormat format = new SerializableDateTimeFormat(getRaplaLocale().createCalendar());
-                calendarview.setTime(format.parseDate(dateString, false ));
-            } catch (ParseException ex) {
-                throw new ServletException( ex);
-            }
-            
-            // display next week
-            if (request.getParameter("next") != null) {
-                calendarview.add( getIncrementSize(), 1);
-            }
-                
-            // display previous week
-            if (request.getParameter("prev") != null) {
-                calendarview.add( getIncrementSize(), -1);
-            }
-        }
 
-        // setup model and view to display the right data
-        Date currentDate = calendarview.getTime();
-        model.setSelectedDate(currentDate);
-        view = createCalendarView();
-        view.setLocale(getRaplaLocale().getLocale());
-        view.setTimeZone(getRaplaLocale().getTimeZone());
-        view.setToDate(model.getSelectedDate());
-        model.setStartDate(view.getStartDate());
-        model.setEndDate(view.getEndDate());
-
-        try {
-            builder = createBuilder(request);
-        } catch (RaplaException ex) {
-            getLogger().error("Can't create builder ", ex);
-            throw new ServletException(ex);
-        }
-        view.rebuild(builder);
         calendarviewHTML = view.getHtml();
 
         // START HTML Code
@@ -255,8 +186,7 @@ public class HTMLMobileWeekViewPage extends AbstractHTMLCalendarPage
 		// end HTML CODE
 		out.println("</body>");
 		out.println("</html>");
-		
-	}
+    }
     
     /**
      * Generates the HTML-Head with all CSS and Javascript includes
@@ -422,7 +352,7 @@ public class HTMLMobileWeekViewPage extends AbstractHTMLCalendarPage
     /**
      * Generates the header navigation toolbar for the current viewport
      */
-    public String generateHeader(HttpServletRequest request, Calendar calendarview)
+    private String generateHeader(HttpServletRequest request, Calendar currentDate)
     {        
 		// Start header area
     	String htmlOut = "<div data-role=\"header\" data-position=\"fixed\" data-tap-toggle=\"false\">\n";
@@ -430,10 +360,10 @@ public class HTMLMobileWeekViewPage extends AbstractHTMLCalendarPage
     	// Display only the previous and next week buttons on the main view
     	if (request.getParameter("detail") == null) {
     		// Last week
-    		htmlOut += "<a data-iconpos=\"notext\" data-icon=\"arrow-l\" class=\"ui-btn-left\" data-direction=\"reverse\" data-transition=\"slide\" href=\"" + genUrl(request) + date2Url(calendarview) + "&amp;prev=1\">" + getI18n().getString("btn_previous") + "</a>\n";
+    		htmlOut += "<a data-iconpos=\"notext\" data-icon=\"arrow-l\" class=\"ui-btn-left\" data-direction=\"reverse\" data-transition=\"slide\" href=\"" + genUrl(request) + date2Url(currentDate) + "&amp;prev=1\">" + getI18n().getString("btn_previous") + "</a>\n";
     	
     		// Next week
-    		htmlOut += "<a data-iconpos=\"notext\" data-icon=\"arrow-r\" class=\"ui-btn-right\" data-transition=\"slide\" href=\"" + genUrl(request) + date2Url(calendarview) + "&amp;next=1\">" + getI18n().getString("btn_next") + "</a>\n";
+    		htmlOut += "<a data-iconpos=\"notext\" data-icon=\"arrow-r\" class=\"ui-btn-right\" data-transition=\"slide\" href=\"" + genUrl(request) + date2Url(currentDate) + "&amp;next=1\">" + getI18n().getString("btn_next") + "</a>\n";
     	}
     	
     	// Catch display view for setting the right title
@@ -456,7 +386,7 @@ public class HTMLMobileWeekViewPage extends AbstractHTMLCalendarPage
     /**
      * Generates the footer navigation toolbar for the current viewport 
      */
-    public String generateFoooter(HttpServletRequest request)
+    private String generateFoooter(HttpServletRequest request)
     {
     	String htmlOut = "";
     	
@@ -643,15 +573,15 @@ public class HTMLMobileWeekViewPage extends AbstractHTMLCalendarPage
 	 * 
 	 * @return void
 	 */
-    private void initConfiguration() {
-        try {
-            ClientFacade facade = getClientFacade();
-            Preferences preferences = (Preferences) facade.edit(facade.getPreferences(null));
-            RaplaConfiguration raplaConfiguration = (RaplaConfiguration) preferences.getEntry("org.rapla.plugin");
-            config = raplaConfiguration.find("class", MobilePlugin.PLUGIN_CLASS);
-        } catch (RaplaException e) {
-            getLogger().error("Cannot read plugin configuration");
-        }
-    }
+//    private void initConfiguration() {
+//        try {
+//            ClientFacade facade = getClientFacade();
+//            Preferences preferences = (Preferences) facade.edit(facade.getPreferences(null));
+//            RaplaConfiguration raplaConfiguration = (RaplaConfiguration) preferences.getEntry("org.rapla.plugin");
+//            //config = raplaConfiguration.find("class", MobilePlugin.PLUGIN_CLASS);
+//        } catch (RaplaException e) {
+//            getLogger().error("Cannot read plugin configuration");
+//        }
+//    }
 }
 

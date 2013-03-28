@@ -19,75 +19,13 @@ import org.rapla.components.util.xml.XMLWriter;
 import org.rapla.entities.domain.Allocatable;
 import org.rapla.entities.domain.internal.AppointmentImpl;
 import org.rapla.entities.storage.RefEntity;
+import org.rapla.framework.RaplaContext;
+import org.rapla.framework.RaplaContextException;
 import org.rapla.plugin.abstractcalendar.AbstractRaplaBlock;
+import org.rapla.plugin.abstractcalendar.HTMLRaplaBlock;
 
 
-class HTMLMobileRaplaBlock extends AbstractRaplaBlock implements HTMLBlock {
-	HTMLMobileRaplaBlock() {
-		super();
-	}
-
-	private int m_day;
-    private int m_row;
-    private int m_rowCount;
-    private int index = 0;
-
-    private String curUrl = "";
-    private boolean userColor = false;
-
-    public void setCurUrl(String url) {
-    	curUrl = url;
-    }
-
-    public void setUserColor(boolean value)
-    {
-    	userColor = value;
-    }
-    
-    public int getIndex() {
-        return index;
-    }
-
-    public void setIndex(int index) {
-        this.index = index;
-    }
-
-    public void setRowCount(int rows) {
-        m_rowCount = rows;
-    }
-
-    public void setRow(int row) {
-        m_row = row;
-    }
-
-    public int getRowCount() {
-        return m_rowCount;
-    }
-
-    public int getRow() {
-        return m_row;
-    }
-
-    public void setDay(int day) {
-        m_day = day;
-    }
-
-    public int getDay() {
-        return m_day;
-    }
-
-    /**
-     * Returns only the Background color if user defined colors are enabled
-     * 
-     * @return String
-     */
-    public String getBackgroundColor() {
-    	if (userColor) {
-    		return getColorsAsHex()[0];
-    	} else {
-    		return "";
-    	}
-    }
+class HTMLMobileRaplaBlock extends HTMLRaplaBlock implements HTMLBlock {
 
     /**
      * Return to current block with the right information
@@ -114,16 +52,7 @@ class HTMLMobileRaplaBlock extends AbstractRaplaBlock implements HTMLBlock {
             label = timeString + "<br/>" + label;
         }
         
-        // get Appointment for ID
-        AppointmentImpl curAppointment = ((AppointmentImpl) getAppointment());
         
-        // Remove the org.rapla we don't need them for GET-Parameter
-        String appointmendId = ((RefEntity) curAppointment).getId().toString().replace("org.rapla.entities.domain.Appointment", "");
-        String reservationId = ((RefEntity)(curAppointment.getReservation())).getId().toString().replace("org.rapla.entities.domain.Reservation_", "");
-        
-        // build ID-String for detail view. Example string: detail=RESERVATIONID_APPOINTMENTID
-        String blockDetailUrl = curUrl + "&amp;detail=" + reservationId + appointmendId;
-        buf.append("<a href=\"" + blockDetailUrl + "\">"); 
                  
         buf.append(label);
 
@@ -156,7 +85,7 @@ class HTMLMobileRaplaBlock extends AbstractRaplaBlock implements HTMLBlock {
             }
         }
         
-        buf.append("</a>\n");
+       
         return buf.toString();
     }
 }
