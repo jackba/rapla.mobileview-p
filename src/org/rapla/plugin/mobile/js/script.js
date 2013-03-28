@@ -15,7 +15,7 @@ function ResizePageContentHeight(page, wait) {
 		pt = parseFloat($content.css("padding-top")) || 0,
 		pb = parseFloat($content.css("padding-bottom")) || 0,
 		wh = window.innerHeight || 0;
-		toResize = wh - hh - (pt + pb);
+		toResize =  wh - hh - (pt + pb);
 		if (toResize < 100 && page.orientation == "lanscape") toResize = 185;
 		if (toResize < 300 && page.orientation == "potrait") toResize = 430;
 		$(".bufRow").height(fh);

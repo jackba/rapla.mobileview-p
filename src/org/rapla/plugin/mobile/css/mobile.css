@@ -151,7 +151,7 @@ html, body { height: 100%; }
 }
 .month_cell { border:1px; border-style:solid; }
 .month_block { font-size: 8pt; margin-bottom: 1px; }
-.person { font-size: 10pt; font-style: italic; }
+.person { font-size: 10pt; }
 .resource { font-size: 10pt; }
 
 /* DATEBOX
