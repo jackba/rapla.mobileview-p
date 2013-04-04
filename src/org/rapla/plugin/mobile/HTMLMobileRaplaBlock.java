@@ -17,11 +17,6 @@ package org.rapla.plugin.mobile;
 import org.rapla.components.calendarview.html.HTMLBlock;
 import org.rapla.components.util.xml.XMLWriter;
 import org.rapla.entities.domain.Allocatable;
-import org.rapla.entities.domain.internal.AppointmentImpl;
-import org.rapla.entities.storage.RefEntity;
-import org.rapla.framework.RaplaContext;
-import org.rapla.framework.RaplaContextException;
-import org.rapla.plugin.abstractcalendar.AbstractRaplaBlock;
 import org.rapla.plugin.abstractcalendar.HTMLRaplaBlock;
 
 

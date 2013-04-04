@@ -21,11 +21,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.rapla.components.util.IOUtil;
 import org.rapla.entities.User;
+import org.rapla.facade.CalendarSelectionModel;
 import org.rapla.facade.RaplaComponent;
 import org.rapla.framework.RaplaContext;
 import org.rapla.framework.RaplaException;
 import org.rapla.gui.ViewFactory;
-import org.rapla.gui.internal.common.CalendarModelImpl;
 import org.rapla.plugin.RaplaExtensionPoints;
 import org.rapla.plugin.autoexport.AutoExportPlugin;
 import org.rapla.servletpages.RaplaPageGenerator;
@@ -47,9 +47,9 @@ public class CalendarPageGenerator extends RaplaComponent implements RaplaPageGe
             String filename = request.getParameter("file");
             
             // Load Calendar by user and filename
-            CalendarModelImpl model = null;
+            CalendarSelectionModel model = null;
             User user = getQuery().getUser(username);
-            model = new CalendarModelImpl(getContext(), user);
+            model = getModification().newCalendarModel(user);
             model.load(filename);
             
             // check if calendar is allowed for VIEW
