@@ -78,7 +78,6 @@ public class MobilePlugin  implements PluginDescriptor
 	        			RaplaExtensionPoints.CALENDAR_VIEW_EXTENSION
 	        			,MobileWeekViewFactory.class
 	        			,MobileWeekViewFactory.MOBILE_WEEK_VIEW
-	        			,null
 	             );
 	        	
 		        RaplaResourcePageGenerator resourcePageGenerator = container.getContext().lookup(RaplaResourcePageGenerator.class);
