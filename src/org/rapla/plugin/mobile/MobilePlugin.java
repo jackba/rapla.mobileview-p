@@ -59,16 +59,15 @@ public class MobilePlugin  implements PluginDescriptor
 
     public void provideServices(Container container, Configuration config) {
     	// register select box for enabling user defined colors for appointments
-    	container.addContainerProvidedComponent(RaplaExtensionPoints.PLUGIN_OPTION_PANEL_EXTENSION, MobilePluginOption.class.getName(),PLUGIN_CLASS, config);
+    	container.addContainerProvidedComponent(RaplaExtensionPoints.PLUGIN_OPTION_PANEL_EXTENSION, MobilePluginOption.class, MobilePlugin.class.getName());
     	
     	// add resource file in order to get later the language definitions
-    	container.addContainerProvidedComponent(I18nBundle.ROLE, I18nBundleImpl.class.getName(), RESOURCE_FILE,I18nBundleImpl.createConfig(RESOURCE_FILE));
+    	container.addContainerProvidedComponent(I18nBundle.class, I18nBundleImpl.class, RESOURCE_FILE,I18nBundleImpl.createConfig(RESOURCE_FILE));
         
     	// check if the plugin is enabled
     	if (!config.getAttributeAsBoolean("enabled", ENABLE_BY_DEFAULT)) {
         	return;
         }
-        container.addContainerProvidedComponentInstance(PLUGIN_CLASS, Boolean.TRUE);
         
         // is this the Server?
         StartupEnvironment env = container.getStartupEnvironment();
@@ -77,12 +76,12 @@ public class MobilePlugin  implements PluginDescriptor
 	        	// Mobile WEEK_VIEW
 	        	container.addContainerProvidedComponent (
 	        			RaplaExtensionPoints.CALENDAR_VIEW_EXTENSION
-	        			,MobileWeekViewFactory.class.getName()
+	        			,MobileWeekViewFactory.class
 	        			,MobileWeekViewFactory.MOBILE_WEEK_VIEW
 	        			,null
 	             );
 	        	
-		        RaplaResourcePageGenerator resourcePageGenerator = (RaplaResourcePageGenerator)container.getContext().lookup(RaplaExtensionPoints.SERVLET_PAGE_EXTENSION + "/resource");
+		        RaplaResourcePageGenerator resourcePageGenerator = container.getContext().lookup(RaplaResourcePageGenerator.class);
 		        
 		        // custom css definitions for the mobile view
 		        resourcePageGenerator.registerResource("mobile.css", "text/css", this.getClass().getResource("/org/rapla/plugin/mobile/css/mobile.css")); 
@@ -124,9 +123,7 @@ public class MobilePlugin  implements PluginDescriptor
 		        	return;
 		        }
 		
-		        // add configuration in order to make the user able to enable/disable the plugin
-		        container.addContainerProvidedComponentInstance(PLUGIN_CLASS, Boolean.TRUE);
-		        container.addContainerProvidedComponent(RaplaExtensionPoints.SERVLET_PAGE_EXTENSION, CalendarPageGenerator.class.getName(), "mobile", config);
+		        container.addContainerProvidedComponent(RaplaExtensionPoints.SERVLET_PAGE_EXTENSION, CalendarPageGenerator.class, "mobile", config);
 	        } catch (Exception ex) {
 	            getLogger().error("Could not initialize mobile plugin on server" , ex);
 	        }

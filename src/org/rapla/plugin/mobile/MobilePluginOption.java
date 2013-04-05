@@ -28,7 +28,7 @@ import org.rapla.gui.DefaultPluginOption;
 import org.rapla.gui.OptionPanel;
 import org.rapla.plugin.autoexport.AutoExportPlugin;
 
-public class MobilePluginOption extends DefaultPluginOption implements OptionPanel {
+public class MobilePluginOption extends DefaultPluginOption {
    
 	// init checkbox
     JCheckBox useUserColor = new JCheckBox();
@@ -49,10 +49,8 @@ public class MobilePluginOption extends DefaultPluginOption implements OptionPan
         content.setLayout(tableLayout);
         
         // notice user if html export is not enabled
-        if(!this.getContext().has(AutoExportPlugin.PLUGIN_CLASS)) {
+        if(!getContext().has(AutoExportPlugin.AUTOEXPORT_PLUGIN_ENABLED)) {
         	content.add(new JLabel("This plugin depends on the HTML Export Plugin. Please enable this plugin before."), "1,0,4,0");
-        } else {
-        	content.add(new JLabel("The required HTML Export Plugin is enabled. This plugin will work fine."), "1,0,4,0");
         }
         
         content.add(new JLabel("Use user defined colors for appointment blocks"), "1,4");
@@ -61,6 +59,7 @@ public class MobilePluginOption extends DefaultPluginOption implements OptionPan
         return panel;
     }
     
+
     protected void addChildren(DefaultConfiguration newConfig) {
         newConfig.setAttribute(MobilePlugin.ENABLE_USER_COLOR, useUserColor.isSelected());
     }

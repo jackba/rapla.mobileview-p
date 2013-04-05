@@ -29,13 +29,13 @@ public class HTMLMobileWeekView extends HTMLWeekView {
         AppointmentImpl curAppointment = ((AppointmentImpl) raplaBlock.getAppointment());
         
         // Remove the org.rapla we don't need them for GET-Parameter
-        String appointmendId = ((RefEntity) curAppointment).getId().toString().replace("org.rapla.entities.domain.Appointment", "");
-        String reservationId = ((RefEntity)(curAppointment.getReservation())).getId().toString().replace("org.rapla.entities.domain.Reservation_", "");
+        String appointmendId = ((RefEntity<?>) curAppointment).getId().toString().replace("org.rapla.entities.domain.Appointment", "");
+        String reservationId = ((RefEntity<?>)(curAppointment.getReservation())).getId().toString().replace("org.rapla.entities.domain.Reservation_", "");
         
         RaplaContext raplaContext = raplaBlock.getBuildContext().getServiceManager();
         String curUrl;
         try {
-            curUrl = (String) raplaContext.lookup( HTMLMobileWeekViewPage.URL_KEY);
+            curUrl = raplaContext.lookup( HTMLMobileWeekViewPage.URL_KEY);
         } catch (RaplaContextException e) {
            throw new IllegalStateException(e.getMessage());
         }

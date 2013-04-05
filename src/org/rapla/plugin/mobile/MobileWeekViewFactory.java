@@ -25,7 +25,7 @@ import org.rapla.servletpages.RaplaPageGenerator;
 
 public class MobileWeekViewFactory extends RaplaComponent implements ViewFactory
 {
-    public MobileWeekViewFactory( RaplaContext context ) throws RaplaException
+    public MobileWeekViewFactory( RaplaContext context ) 
     {
         super( context );
     }

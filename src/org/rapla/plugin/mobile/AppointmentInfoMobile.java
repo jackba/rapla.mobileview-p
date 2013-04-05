@@ -24,7 +24,7 @@ public class AppointmentInfoMobile extends ReservationInfoUI {
      */
     public String getTooltip(Object object) {
         Appointment appointment = (Appointment) object;
-        Reservation reservation = (Reservation) appointment.getReservation();
+        Reservation reservation =  appointment.getReservation();
         
         // start generating the html output code
         StringBuffer buf = new StringBuffer();
@@ -58,13 +58,13 @@ public class AppointmentInfoMobile extends ReservationInfoUI {
     /**
      * Create a ordered list of the given attributes
      */
-    public static void createOrderedList(Collection attributes,StringBuffer buf, boolean encodeValues)
+    public static void createOrderedList(Collection<Row> attributes,StringBuffer buf, boolean encodeValues)
     {
     	buf.append("<ul data-role=\"listview\">");
     	
-    	Iterator it = attributes.iterator();
+    	Iterator<Row> it = attributes.iterator();
         while (it.hasNext()) {
-        	Row att =  (Row) it.next();
+        	Row att =  it.next();
             buf.append("<li>\n");
             String field = att.getField();
 			encode(field,buf);
@@ -77,7 +77,7 @@ public class AppointmentInfoMobile extends ReservationInfoUI {
             if (att.getValue() != null) {
             	// encode values if requested for better HTML support
                 if (encodeValues) {
-                    encode((String)att.getValue(),buf);
+                    encode(att.getValue(),buf);
                 } else {
                     buf.append(att.getValue());
                 }
@@ -92,7 +92,8 @@ public class AppointmentInfoMobile extends ReservationInfoUI {
     /**
      * Generates the created_at and last_changed information row
      */
-    public void insertModificationRow( Timestamp timestamp, StringBuffer buf ) {
+    @Override
+    protected void insertModificationRow( Timestamp timestamp, StringBuffer buf ) {
         final Date createTime = timestamp.getCreateTime();
         final Date lastChangeTime = timestamp.getLastChangeTime();
         if (lastChangeTime != null) {

@@ -34,6 +34,7 @@ import org.rapla.facade.CalendarOptions;
 import org.rapla.framework.RaplaContext;
 import org.rapla.framework.RaplaDefaultContext;
 import org.rapla.framework.RaplaException;
+import org.rapla.framework.TypedComponentRole;
 import org.rapla.plugin.abstractcalendar.AbstractHTMLCalendarPage;
 import org.rapla.plugin.abstractcalendar.GroupAllocatablesStrategy;
 import org.rapla.plugin.abstractcalendar.HTMLRaplaBlock;
@@ -42,11 +43,11 @@ import org.rapla.plugin.abstractcalendar.RaplaBuilder;
 
 public class HTMLMobileWeekViewPage extends AbstractHTMLCalendarPage
 {
-    public static final String URL_KEY = HTMLMobileRaplaBlock.class.getName() + "/URL";
+    public static final TypedComponentRole<String> URL_KEY = new TypedComponentRole<String>(HTMLMobileRaplaBlock.class.getName() + "/URL");
     
     RaplaDefaultContext context = new RaplaDefaultContext( getContext());
     
-    public HTMLMobileWeekViewPage(RaplaContext context, CalendarModel calendarModel) throws RaplaException
+    public HTMLMobileWeekViewPage(RaplaContext context, CalendarModel calendarModel) 
     {
         super(context, calendarModel);
         setChildBundleName(MobilePlugin.RESOURCE_FILE);
@@ -266,7 +267,7 @@ public class HTMLMobileWeekViewPage extends AbstractHTMLCalendarPage
 	    for (Reservation reservation:model.getReservations())
 	    {
 	    	// check for reservation
-	    	String reservationId = ((RefEntity) reservation).getId().toString().split("_")[1];
+	    	String reservationId = ((RefEntity<?>) reservation).getId().toString().split("_")[1];
 	    	if (reservationId.equals(detailIds[0])) {
 	    		viewReserv = reservation;
 	    		break;
@@ -280,7 +281,7 @@ public class HTMLMobileWeekViewPage extends AbstractHTMLCalendarPage
 	    	for (Appointment appointment:Appointments) 
 	    	{
 	    		// check for appointment
-	    		String appointmentId = ((RefEntity) appointment).getId().toString().split("_")[1];
+	    		String appointmentId = ((RefEntity<?>) appointment).getId().toString().split("_")[1];
 		    	if (appointmentId.equals(detailIds[1])) {
 		    		viewAppoint = appointment;
 		    		break;

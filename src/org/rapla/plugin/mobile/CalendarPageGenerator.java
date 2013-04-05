@@ -32,7 +32,7 @@ import org.rapla.servletpages.RaplaPageGenerator;
 
 public class CalendarPageGenerator extends RaplaComponent implements RaplaPageGenerator
 {
-    public CalendarPageGenerator(RaplaContext context) throws RaplaException
+    public CalendarPageGenerator(RaplaContext context) 
     {
         super(context);
     }
@@ -60,9 +60,7 @@ public class CalendarPageGenerator extends RaplaComponent implements RaplaPageGe
             
             // force for getting mobile version of current view
             final String viewId = "mobile_" + model.getViewId();
-            ViewFactory factory = (ViewFactory) getService( RaplaExtensionPoints.CALENDAR_VIEW_EXTENSION
-                    + "/"
-                    + viewId);
+            ViewFactory factory = getService( RaplaExtensionPoints.CALENDAR_VIEW_EXTENSION, viewId);
 
             if (factory != null) {
             	// okay there is a view lets display it mobile optimized
