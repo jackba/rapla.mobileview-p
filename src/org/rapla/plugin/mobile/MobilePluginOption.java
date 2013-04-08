@@ -22,10 +22,10 @@ import javax.swing.JPanel;
 import org.rapla.components.layout.TableLayout;
 import org.rapla.framework.Configuration;
 import org.rapla.framework.DefaultConfiguration;
+import org.rapla.framework.PluginDescriptor;
 import org.rapla.framework.RaplaContext;
 import org.rapla.framework.RaplaException;
 import org.rapla.gui.DefaultPluginOption;
-import org.rapla.gui.OptionPanel;
 import org.rapla.plugin.autoexport.AutoExportPlugin;
 
 public class MobilePluginOption extends DefaultPluginOption {
@@ -33,7 +33,7 @@ public class MobilePluginOption extends DefaultPluginOption {
 	// init checkbox
     JCheckBox useUserColor = new JCheckBox();
     
-    public MobilePluginOption(RaplaContext sm) throws RaplaException {
+    public MobilePluginOption(RaplaContext sm) {
         super(sm);
     }
 
@@ -76,8 +76,8 @@ public class MobilePluginOption extends DefaultPluginOption {
         super.commit();
     }
     
-    public String getDescriptorClassName() {
-        return MobilePlugin.class.getName();
+    public Class<? extends PluginDescriptor> getPluginClass() {
+        return MobilePlugin.class;
     }
     
     public String getName(Locale locale) {

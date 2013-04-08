@@ -11,11 +11,10 @@ import org.rapla.entities.domain.Reservation;
 import org.rapla.entities.dynamictype.Classifiable;
 import org.rapla.entities.dynamictype.Classification;
 import org.rapla.framework.RaplaContext;
-import org.rapla.framework.RaplaException;
 import org.rapla.gui.internal.view.ReservationInfoUI;
 
 public class AppointmentInfoMobile extends ReservationInfoUI {
-    public AppointmentInfoMobile(RaplaContext sm) throws RaplaException {
+    public AppointmentInfoMobile(RaplaContext sm)  {
         super(sm);
     }
 

@@ -14,13 +14,12 @@
 package org.rapla.plugin.mobile;
 
 
-import org.rapla.components.calendarview.html.HTMLBlock;
 import org.rapla.components.util.xml.XMLWriter;
 import org.rapla.entities.domain.Allocatable;
 import org.rapla.plugin.abstractcalendar.HTMLRaplaBlock;
 
 
-class HTMLMobileRaplaBlock extends HTMLRaplaBlock implements HTMLBlock {
+class HTMLMobileRaplaBlock extends HTMLRaplaBlock  {
 
     /**
      * Return to current block with the right information
