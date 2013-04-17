@@ -18,11 +18,11 @@ import org.rapla.framework.Configuration;
 import org.rapla.framework.Container;
 import org.rapla.framework.PluginDescriptor;
 import org.rapla.framework.RaplaContextException;
-import org.rapla.framework.StartupEnvironment;
 import org.rapla.framework.TypedComponentRole;
 import org.rapla.framework.logger.Logger;
 import org.rapla.plugin.RaplaExtensionPoints;
 import org.rapla.plugin.RaplaPluginMetaInfo;
+import org.rapla.server.ServerService;
 import org.rapla.server.ServerServiceContainer;
 import org.rapla.servletpages.RaplaResourcePageGenerator;
 
@@ -73,8 +73,7 @@ public class MobilePlugin  implements PluginDescriptor
         }
         
         // is this the Server?
-        StartupEnvironment env = container.getStartupEnvironment();
-        if (env.getStartupMode() == StartupEnvironment.SERVLET) {
+        if ( container.getContext().has(ServerService.class) ) {
         	// Mobile WEEK_VIEW
         	container.addContainerProvidedComponent (RaplaExtensionPoints.CALENDAR_VIEW_EXTENSION,MobileWeekViewFactory.class);
 	        RaplaResourcePageGenerator resourcePageGenerator = container.getContext().lookup(RaplaResourcePageGenerator.class);
