@@ -49,7 +49,7 @@ public class MobilePluginOption extends DefaultPluginOption {
         content.setLayout(tableLayout);
         
         // notice user if html export is not enabled
-        if(!getContext().has(AutoExportPlugin.AUTOEXPORT_PLUGIN_ENABLED)) {
+        if(!getContext().has(AutoExportPlugin.AUTOEXPORT_PLUGIN_RESOURCE)) {
         	content.add(new JLabel("This plugin depends on the HTML Export Plugin. Please enable this plugin before."), "1,0,4,0");
         }
         
