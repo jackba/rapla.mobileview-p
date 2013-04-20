@@ -76,7 +76,7 @@ public class MobilePluginOption extends DefaultPluginOption {
         super.commit();
     }
     
-    public Class<? extends PluginDescriptor> getPluginClass() {
+    public Class<? extends PluginDescriptor<?>> getPluginClass() {
         return MobilePlugin.class;
     }
     

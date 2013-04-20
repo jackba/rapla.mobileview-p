@@ -19,7 +19,7 @@ import org.rapla.entities.storage.RefEntity;
 import org.rapla.framework.RaplaContext;
 import org.rapla.framework.RaplaContextException;
 import org.rapla.plugin.abstractcalendar.AbstractRaplaBlock;
-import org.rapla.plugin.mobile.HTMLMobileWeekViewPage;
+import org.rapla.plugin.mobile.server.HTMLMobileWeekViewPage;
 
 public class HTMLMobileWeekView extends HTMLWeekView {
     @Override

@@ -1,4 +1,4 @@
-package org.rapla.plugin.mobile;
+package org.rapla.plugin.mobile.server;
 
 import java.util.Collection;
 import java.util.Date;

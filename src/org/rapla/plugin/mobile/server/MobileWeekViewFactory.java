@@ -10,7 +10,7 @@
  | program with every library, which license fulfills the Open Source       |
  | Definition as published by the Open Source Initiative (OSI).             |
  *--------------------------------------------------------------------------*/
-package org.rapla.plugin.mobile;
+package org.rapla.plugin.mobile.server;
 
 import javax.swing.Icon;
 
@@ -19,11 +19,11 @@ import org.rapla.facade.RaplaComponent;
 import org.rapla.framework.RaplaContext;
 import org.rapla.framework.RaplaException;
 import org.rapla.gui.SwingCalendarView;
-import org.rapla.gui.ViewFactory;
+import org.rapla.gui.SwingViewFactory;
 import org.rapla.gui.images.Images;
 import org.rapla.servletpages.RaplaPageGenerator;
 
-public class MobileWeekViewFactory extends RaplaComponent implements ViewFactory
+public class MobileWeekViewFactory extends RaplaComponent implements SwingViewFactory
 {
     public MobileWeekViewFactory( RaplaContext context ) 
     {

@@ -10,12 +10,12 @@
  | program with every library, which license fulfills the Open Source       |
  | Definition as published by the Open Source Initiative (OSI).             |
  *--------------------------------------------------------------------------*/
-package org.rapla.plugin.mobile;
+package org.rapla.plugin.mobile.server;
 
 import org.rapla.framework.RaplaContext;
 import org.rapla.framework.RaplaContextException;
-import org.rapla.gui.ViewFactory;
-import org.rapla.plugin.autoexport.CalendarPageGenerator;
+import org.rapla.plugin.abstractcalendar.server.HTMLViewFactory;
+import org.rapla.plugin.autoexport.server.CalendarPageGenerator;
 
 public class MobileCalendarPageGenerator extends CalendarPageGenerator 
 {
@@ -25,7 +25,7 @@ public class MobileCalendarPageGenerator extends CalendarPageGenerator
     }
 
 	@Override
-	protected ViewFactory getFactory(String viewId) {
+	protected HTMLViewFactory getFactory(String viewId) {
 		return super.getFactory("mobile_"+viewId);
 	}
 

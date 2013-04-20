@@ -11,12 +11,12 @@
  | Definition as published by the Open Source Initiative (OSI).             |
  *--------------------------------------------------------------------------*/
 
-package org.rapla.plugin.mobile;
+package org.rapla.plugin.mobile.server;
 
 
 import org.rapla.components.util.xml.XMLWriter;
 import org.rapla.entities.domain.Allocatable;
-import org.rapla.plugin.abstractcalendar.HTMLRaplaBlock;
+import org.rapla.plugin.abstractcalendar.server.HTMLRaplaBlock;
 
 
 class HTMLMobileRaplaBlock extends HTMLRaplaBlock  {

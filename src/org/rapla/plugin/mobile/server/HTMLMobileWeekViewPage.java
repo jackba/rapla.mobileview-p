@@ -10,7 +10,7 @@
  | program with every library, which license fulfills the Open Source       |
  | Definition as published by the Open Source Initiative (OSI).             |
  *--------------------------------------------------------------------------*/
-package org.rapla.plugin.mobile;
+package org.rapla.plugin.mobile.server;
 
 import java.io.IOException;
 import java.text.MessageFormat;
@@ -35,11 +35,12 @@ import org.rapla.framework.RaplaContext;
 import org.rapla.framework.RaplaDefaultContext;
 import org.rapla.framework.RaplaException;
 import org.rapla.framework.TypedComponentRole;
-import org.rapla.plugin.abstractcalendar.AbstractHTMLCalendarPage;
 import org.rapla.plugin.abstractcalendar.GroupAllocatablesStrategy;
-import org.rapla.plugin.abstractcalendar.HTMLRaplaBlock;
-import org.rapla.plugin.abstractcalendar.HTMLRaplaBuilder;
 import org.rapla.plugin.abstractcalendar.RaplaBuilder;
+import org.rapla.plugin.abstractcalendar.server.AbstractHTMLCalendarPage;
+import org.rapla.plugin.abstractcalendar.server.HTMLRaplaBlock;
+import org.rapla.plugin.abstractcalendar.server.HTMLRaplaBuilder;
+import org.rapla.plugin.mobile.MobilePlugin;
 
 public class HTMLMobileWeekViewPage extends AbstractHTMLCalendarPage
 {
