@@ -11,15 +11,16 @@
  | Definition as published by the Open Source Initiative (OSI).             |
  *--------------------------------------------------------------------------*/
 
-package org.rapla.components.calendarview.html;
+package org.rapla.plugin.mobile.server;
 
 import org.rapla.components.calendarview.Block;
+import org.rapla.components.calendarview.html.HTMLBlock;
+import org.rapla.components.calendarview.html.HTMLWeekView;
 import org.rapla.entities.domain.internal.AppointmentImpl;
 import org.rapla.entities.storage.RefEntity;
 import org.rapla.framework.RaplaContext;
 import org.rapla.framework.RaplaContextException;
 import org.rapla.plugin.abstractcalendar.AbstractRaplaBlock;
-import org.rapla.plugin.mobile.server.HTMLMobileWeekViewPage;
 
 public class HTMLMobileWeekView extends HTMLWeekView {
     @Override
