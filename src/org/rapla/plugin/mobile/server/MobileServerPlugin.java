@@ -17,6 +17,7 @@ import org.rapla.framework.Configuration;
 import org.rapla.framework.PluginDescriptor;
 import org.rapla.framework.RaplaContextException;
 import org.rapla.plugin.RaplaClientExtensionPoints;
+import org.rapla.plugin.RaplaServerExtensionPoints;
 import org.rapla.plugin.mobile.MobilePlugin;
 import org.rapla.server.ServerServiceContainer;
 import org.rapla.servletpages.RaplaResourcePageGenerator;
@@ -34,7 +35,7 @@ public class MobileServerPlugin  implements PluginDescriptor<ServerServiceContai
         }
         
     	// Mobile WEEK_VIEW
-    	container.addContainerProvidedComponent (RaplaClientExtensionPoints.CALENDAR_VIEW_EXTENSION,MobileWeekViewFactory.class);
+    	container.addContainerProvidedComponent (RaplaServerExtensionPoints.HTML_CALENDAR_VIEW_EXTENSION,MobileWeekViewFactory.class);
         RaplaResourcePageGenerator resourcePageGenerator = container.getContext().lookup(RaplaResourcePageGenerator.class);
         
         // custom css definitions for the mobile view

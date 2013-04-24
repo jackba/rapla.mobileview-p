@@ -12,18 +12,14 @@
  *--------------------------------------------------------------------------*/
 package org.rapla.plugin.mobile.server;
 
-import javax.swing.Icon;
-
 import org.rapla.facade.CalendarModel;
 import org.rapla.facade.RaplaComponent;
 import org.rapla.framework.RaplaContext;
 import org.rapla.framework.RaplaException;
-import org.rapla.gui.SwingCalendarView;
-import org.rapla.gui.SwingViewFactory;
-import org.rapla.gui.images.Images;
+import org.rapla.plugin.abstractcalendar.server.HTMLViewFactory;
 import org.rapla.servletpages.RaplaPageGenerator;
 
-public class MobileWeekViewFactory extends RaplaComponent implements SwingViewFactory
+public class MobileWeekViewFactory extends RaplaComponent implements HTMLViewFactory
 {
     public MobileWeekViewFactory( RaplaContext context ) 
     {
@@ -31,11 +27,6 @@ public class MobileWeekViewFactory extends RaplaComponent implements SwingViewFa
     }
 
     public final static String MOBILE_WEEK_VIEW = "mobile_week";
-
-    public SwingCalendarView createSwingView(RaplaContext context, CalendarModel model, boolean editable) throws RaplaException
-    {
-        return null;
-    }
 
     public RaplaPageGenerator createHTMLView(RaplaContext context, CalendarModel model) throws RaplaException
     {
@@ -52,18 +43,6 @@ public class MobileWeekViewFactory extends RaplaComponent implements SwingViewFa
         return getString(MOBILE_WEEK_VIEW);
     }
 
-    Icon icon;
-    public Icon getIcon()
-    {
-        if ( icon == null) {
-            icon = Images.getIcon("/org/rapla/plugin/weekview/images/week.png");
-        }
-        return icon;
-    }
-
-    public String getMenuSortKey() {
-        return "B";
-    }
-
+  
 }
 
