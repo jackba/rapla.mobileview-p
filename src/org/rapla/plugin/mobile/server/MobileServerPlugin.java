@@ -12,13 +12,13 @@
  *--------------------------------------------------------------------------*/
 package org.rapla.plugin.mobile.server;
 
+import org.rapla.client.RaplaClientExtensionPoints;
 import org.rapla.components.xmlbundle.impl.I18nBundleImpl;
 import org.rapla.framework.Configuration;
 import org.rapla.framework.PluginDescriptor;
 import org.rapla.framework.RaplaContextException;
-import org.rapla.plugin.RaplaClientExtensionPoints;
-import org.rapla.plugin.RaplaServerExtensionPoints;
 import org.rapla.plugin.mobile.MobilePlugin;
+import org.rapla.server.RaplaServerExtensionPoints;
 import org.rapla.server.ServerServiceContainer;
 import org.rapla.servletpages.RaplaResourcePageGenerator;
 
