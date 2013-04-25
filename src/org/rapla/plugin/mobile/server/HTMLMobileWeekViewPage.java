@@ -102,10 +102,7 @@ public class HTMLMobileWeekViewPage extends AbstractHTMLCalendarPage
               return new HTMLMobileRaplaBlock();
           }  
         };
-        builder.setRepeatingVisible( false);
-        builder.setExceptionsExcluded( true );
         builder.setFromModel( model, view.getStartDate(), view.getEndDate()  );
-        builder.setEditingUser( model.getUser());
 
         GroupAllocatablesStrategy strategy = new GroupAllocatablesStrategy( getRaplaLocale().getLocale() );
         boolean compactColumns = getCalendarOptions().isCompactColumns() ||  builder.getAllocatables().size() ==0 ;
