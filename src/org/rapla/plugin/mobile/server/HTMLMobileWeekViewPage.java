@@ -60,12 +60,13 @@ public class HTMLMobileWeekViewPage extends AbstractHTMLCalendarPage
      * Create the current calendar view
      */
     protected AbstractHTMLView createCalendarView() {
-    	HTMLMobileWeekView weekView = new HTMLMobileWeekView(){
-            protected String getWeekNumberRow() {
-                return MessageFormat.format("("+getString("week") + " {0,date,w})", getStartDate());
-            }
-        };
-        
+    	HTMLMobileWeekView weekView = new HTMLMobileWeekView()
+    	{
+        	public void rebuild() {
+                setWeeknumber(MessageFormat.format(getString("calendarweek.abbreviation"), getStartDate()));
+        		super.rebuild();
+        	}
+    	};
        return weekView;
     }
     
