@@ -21,8 +21,7 @@ public class AppointmentInfoMobile extends ReservationInfoUI {
     /**
      * Generates the full information for the detail page
      */
-    public String getTooltip(Object object) {
-        Appointment appointment = (Appointment) object;
+    public String getTooltip(Appointment appointment) {
         Reservation reservation =  appointment.getReservation();
         
         // start generating the html output code
