@@ -74,7 +74,7 @@ public class HTMLMobileWeekViewPage extends AbstractHTMLCalendarPage
         HTMLMobileWeekView weekView = (HTMLMobileWeekView) view;
         CalendarOptions opt = getCalendarOptions();
         weekView.setRowsPerHour( opt.getRowsPerHour() );
-        weekView.setWorktime( opt.getWorktimeStart(), opt.getWorktimeEnd() );
+        weekView.setWorktimeMinutes( opt.getWorktimeStartMinutes(), opt.getWorktimeEndMinutes() );
         weekView.setFirstWeekday( opt.getFirstDayOfWeek());
         int days = getDays(opt);
         weekView.setDaysInView( days);
