@@ -14,7 +14,6 @@
 package org.rapla.plugin.mobile.server;
 
 import org.rapla.components.calendarview.Block;
-import org.rapla.components.calendarview.html.HTMLBlock;
 import org.rapla.components.calendarview.html.HTMLWeekView;
 import org.rapla.entities.domain.internal.AppointmentImpl;
 import org.rapla.entities.storage.RefEntity;
@@ -24,7 +23,7 @@ import org.rapla.plugin.abstractcalendar.AbstractRaplaBlock;
 
 public class HTMLMobileWeekView extends HTMLWeekView {
     @Override
-    protected void printBlock(StringBuffer result, int firstEventMarker, Block block, int rowspan) {
+    protected void printBlock(StringBuffer result, int firstEventMarker, Block block) {
         AbstractRaplaBlock raplaBlock = (AbstractRaplaBlock) block;
         // get Appointment for ID
         AppointmentImpl curAppointment = ((AppointmentImpl) raplaBlock.getAppointment());
@@ -40,18 +39,13 @@ public class HTMLMobileWeekView extends HTMLWeekView {
         } catch (RaplaContextException e) {
            throw new IllegalStateException(e.getMessage());
         }
-        // build ID-String for detail view. Example string: detail=RESERVATIONID_APPOINTMENTID
+        //result.append("<div class=\"event_block\"" + firstEventMarker + ">");                       
         String blockDetailUrl = curUrl + "&amp;detail=" + reservationId + appointmendId;
-        result.append("<td valign=\"top\" class=\"week_block\"");
-        result.append(" rowspan=\"" + rowspan + "\"");
-        if (block instanceof HTMLBlock)
-            result.append(" bgcolor=\"" + ((HTMLBlock) block).getBackgroundColor() + "\"");
-        result.append(">");
-        result.append("<div class=\"event_block\"" + firstEventMarker + ">");                       
         result.append("<a href=\"" + blockDetailUrl + "\">"); 
         result.append(block.toString());
         result.append("</a>\n");
-        result.append("</div>");
-        result.append("</td>\n");
+		//result.append("</td>");
+
+        // build ID-String for detail view. Example string: detail=RESERVATIONID_APPOINTMENTID
     }
 }

@@ -15,7 +15,6 @@ html, body { height: 100%; }
 #calendar .week_block {
 	border: 1px solid #000;
 	cursor: pointer;
-	font-weight: bold;
 	color: #000;
 	font-family: Helvetica, Arial, sans-serif;
 	font-size: 11px;
@@ -37,7 +36,11 @@ html, body { height: 100%; }
 	background-image: linear-gradient(#85bae4, #5393c5);
 	color: #fff;
 }
-.event_block { position:relative; top: 5px; padding: 5px; }
+
+#calendar a, a:visited{
+    color: black;
+    text-decoration: none;
+}
 #calendar .week_block.bg .event_block a { color: #fff; display: block; text-decoration: none; }
 #calendar .week_block.bg .event_block a span { text-shadow: 0 -1px  1px  #145072; }
 #calendar .week_block .event_block a { color: #000; display: block; text-decoration: none; }
@@ -45,6 +48,13 @@ html, body { height: 100%; }
 /* CALENDAR
 ---------------------------------------------*/
 #calendar a span td { padding: 0px; font-size: small; color: black; }
+#calendar a td {
+    padding: 0px;
+    font-size: small;
+    color: black;
+    text-decoration: none;
+}
+
 .title { text-align:center; }
 .week_table {
     empty-cells: show;
