@@ -207,20 +207,20 @@ public class HTMLMobileWeekViewPage extends AbstractHTMLCalendarPage
 		htmlOut += "<title>" + theTitle  + "</title>\n";
 		
 		// include needed javascript files and libraries - every file is document inside the MobilePlugin class
-		htmlOut += "<script type=\"text/javascript\" src=\"rapla?page=resource&amp;name=jquery.min.js\"></script>\n";
+		htmlOut += "<script type=\"text/javascript\" src=\"jquery.min.js\"></script>\n";
 		
 		// this file have to be loaded before jQuery mobile
-		htmlOut += "<script type=\"text/javascript\" src=\"rapla?page=resource&amp;name=jquery.mobile.pref.js\"></script>\n"; 
+		htmlOut += "<script type=\"text/javascript\" src=\"jquery.mobile.pref.js\"></script>\n"; 
 		
-		htmlOut += "<script type=\"text/javascript\" src=\"rapla?page=resource&amp;name=jquery.easing.js\"></script>\n";
-		htmlOut += "<script type=\"text/javascript\" src=\"rapla?page=resource&amp;name=jquery.mobile.js\"></script>\n";
-		htmlOut += "<script type=\"text/javascript\" src=\"rapla?page=resource&amp;name=jquery.mobile.scrollview.js\"></script>\n";
-		htmlOut += "<script type=\"text/javascript\" src=\"rapla?page=resource&amp;name=jquery.mobile.datebox.min.js\"></script>\n";
-		htmlOut += "<script type=\"text/javascript\" src=\"rapla?page=resource&amp;name=script.js\"></script>\n";
+		htmlOut += "<script type=\"text/javascript\" src=\"jquery.easing.js\"></script>\n";
+		htmlOut += "<script type=\"text/javascript\" src=\"jquery.mobile.js\"></script>\n";
+		htmlOut += "<script type=\"text/javascript\" src=\"jquery.mobile.scrollview.js\"></script>\n";
+		htmlOut += "<script type=\"text/javascript\" src=\"jquery.mobile.datebox.min.js\"></script>\n";
+		htmlOut += "<script type=\"text/javascript\" src=\"script.js\"></script>\n";
 
 		// include css files
-		htmlOut += "<link rel=\"stylesheet\" href=\"rapla?page=resource&amp;name=jquery.mobile.css\" media=\"screen\" type=\"text/css\" />\n";
-		htmlOut += "<link rel=\"stylesheet\" href=\"rapla?page=resource&amp;name=mobile.css\" media=\"screen\" type=\"text/css\" />\n";
+		htmlOut += "<link rel=\"stylesheet\" href=\"jquery.mobile.css\" media=\"screen\" type=\"text/css\" />\n";
+		htmlOut += "<link rel=\"stylesheet\" href=\"mobile.css\" media=\"screen\" type=\"text/css\" />\n";
 		
 		// tell the html page where its favourite icon is stored
 		htmlOut += "<link rel=\"shortcut icon\" type=\"image/x-icon\" href=\"/images/favicon.ico\" />\n";
